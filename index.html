@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+< lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz App</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#4CAF50;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.box{
+width:350px;
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 0 15px rgba(0,0,0,.3);
+}
+
+h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+button{
+width:100%;
+padding:15px;
+margin-top:10px;
+font-size:18px;
+cursor:pointer;
+border:none;
+border-radius:10px;
+background:#2196F3;
+color:white;
+}
+
+button:hover{
+background:#1976D2;
+}
+
+#score{
+text-align:center;
+font-size:22px;
+font-weight:bold;
+margin-top:20px;
+}
+</style>
+
+</head>
+
+<>
+
+<div class="box">
+
+<h2 id="question"></h2>
+
+<button id="b0"></button>
+<button id="b1"></button>
+<button id="b2"></button>
+<button id="b3"></button>
+
+<p id="score"></p>
+
+</div>
+
+<script>
+
+const quiz=[{
+q:"বাংলাদেশের রাজধানী কী?",
+o:["চট্টগ্রাম","ঢাকা","খুলনা","রাজশাহী"],
+a:1
+},
+{
+q:"২+২ কত?",
+o:["৩","৪","৫","৬"],
+a:1
+},
+{
+q:"জাতীয় ফুল কী?",
+o:["গোলাপ","শাপলা","জবা","বেলি"],
+a:1
+},
+{
+q:"বাংলাদেশের জাতীয় ফল কী?",
+o:["আম","কাঁঠাল","লিচু","কলা"],
+a:1
+},
+{
+q:"সূর্য কোন দিকে ওঠে?",
+o:["পূর্ব","পশ্চিম","উত্তর","দক্ষিণ"],
+a:0
+}
+];
+
+let current=0;
+let score=0;
+
+function loadQuestion(){
+
+document.getElementById("question").innerHTML=quiz[current].q;
+
+for(let i=0;i<4;i++){
+
+let btn=document.getElementById("b"+i);
+
+btn.innerHTML=quiz[current].o[i];
+
+btn.onclick=function(){
+
+check(i);
+
+}
+
+}
+
+}function check(ans){
+
+if(ans==quiz[current].a){
+score++;
+alert("✅ সঠিক উত্তর");
+}else{
+alert("❌ ভুল উত্তর");
+}
+
+current++;
+
+if(current<quiz.length){
+
+loadQuestion();
+
+}else{
+
+document.querySelector(".box").innerHTML=
+"<h2>🎉 Quiz শেষ</h2>"+
+"<p id='score'>তোমার স্কোর: "+score+"/"+quiz.length+"</p>"+
+"<button onclick='restart()'>🔄 আবার খেলুন</button>";
+
+}
+
+}
+
+function restart(){
+
+current=0;
+score=0;
+
+document.querySelector(".box").innerHTML=
+`
+<h2 id="question"></h2>
+
+<button id="b0"></button>
+<button id="b1"></button>
+<button id="b2"></button>
+<button id="b3"></button>
+
+<p id="score"></p>
+`;
+
+loadQuestion();
+
+}
+
+loadQuestion();
+
+</script>
+<script src="questions.js"></script>
+</body>
+</html>
